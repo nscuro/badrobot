@@ -28,6 +28,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
         with:
+          persist-credentials: false
           # needed for bats tests
           submodules: true
 
