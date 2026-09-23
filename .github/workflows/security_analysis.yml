@@ -1,6 +1,6 @@
 ---
 name: Security Analysis
-
+permissions: {}
 on:
   push:
     branches: [master]
