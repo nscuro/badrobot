@@ -22,14 +22,6 @@ jobs:
             suffix: -alpine
 
     steps:
-      - name: Cache container layers
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}${{ matrix.containers.suffix }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}${{ matrix.containers.suffix }}-buildx-
-
       - name: Checkout
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
@@ -76,8 +68,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           file: ${{ matrix.containers.file }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: mode=max,type=local,dest=/tmp/.buildx-cache
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           build-args: |
